@@ -11,9 +11,9 @@ func = Role.new(name: "Funcionário", code: 2)
 admin.save
 func.save
 
-u = User.new(username: "luzeiro", password: "luzeiroadmin123", email: "luzeiro@luzeiro.com",password_confirmation:"luzeiroadmin123", role: Role.find_by({code: 1}))
+u = User.new(username: "admin", password: "admin1234", email: "admin@admin.com",password_confirmation:"admin1234", role: Role.find_by({code: 1}))
 u.save
-u = User.new(username: "edu",email: "edu@luzeiro.com", password: "luzeiro123", password_confirmation:"luzeiro123", role: Role.find_by({code: 2}))
+u = User.new(username: "user",email: "user@user.com", password: "user1234", password_confirmation:"user1234", role: Role.find_by({code: 2}))
 u.save
 c = Company.new(id: 1, name: "Luzeiro Navegação")
 c.save
