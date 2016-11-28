@@ -1,0 +1,2 @@
+module GraficsHelper
+end

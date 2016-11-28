@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :chart_of_accounts
   resources :companies
   resources :form_wizard
-  
+  resources :grafics
 
 
 devise_for :users, controllers: {
@@ -22,7 +22,7 @@ devise_for :users, controllers: {
   end
 
   
-
+  
   get 'checar_data', to: 'results#check_valid_date', as: :check_valid_date
   get 'selecionar_periodo', to: 'results#selecionar_periodo', as: :result_search
   get 'control_users/index'
