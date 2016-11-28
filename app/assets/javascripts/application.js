@@ -19,6 +19,8 @@
 //= require select2_locale_"pt-BR"
 //= require bootstrap-datepicker
 //= require maskmoney
+//= require Chart.bundle
+//= require chartkick
 //= require_tree .
 
 

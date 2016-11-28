@@ -12,7 +12,7 @@
 
 
   </div>
-
+    <%= line_chart Operation.group_by_day(:created_at).count %>
     <div class="col-md-6">
       <div class="pull-right arredaplanodecontas">
         <%= render "search" %>
