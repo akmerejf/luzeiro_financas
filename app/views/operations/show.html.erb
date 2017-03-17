@@ -1,28 +1,24 @@
+<p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Valor:</strong>
+  <strong>Value:</strong>
   <%= @operation.value %>
 </p>
 
 <p>
-  <strong>Descrição:</strong>
-  <%= @operation.description %>
+  <strong>Release account:</strong>
+  <%= @operation.release_account %>
 </p>
 
 <p>
-  <strong>Data de lançamento:</strong>
-  <%= @operation.release_date.strftime("%d/%m/%Y") %>
+  <strong>Retrieve account:</strong>
+  <%= @operation.retrieve_account %>
 </p>
 
 <p>
-  <strong>Conta a débito:</strong>
-  <%= @operation.retrieve_account.analytic_account_name %>
+  <strong>Operation date:</strong>
+  <%= @operation.operation_date %>
 </p>
 
-<p>
-  <strong>Conta a crédito:</strong>
-  <%= @operation.release_account.analytic_account_name %>
-</p>
-
-
-<%= link_to 'Voltar', operations_path %>
+<%= link_to 'Edit', edit_operation_path(@operation) %> |
+<%= link_to 'Back', operations_path %>

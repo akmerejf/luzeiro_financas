@@ -5,14 +5,17 @@ class AccountsController < ApplicationController
   # GET /accounts
   # GET /accounts.json
   def index
-    @accounts = Account.all
+    @accounts = Account.roots
   end
 
   # GET /accounts/1
   # GET /accounts/1.json
   def show
+      @credit_operations = Operation.where(release_account: @account)
+      @debit_operations = Operation.where(retrieve_account: @account)
+      @operations = (@credit_operations + @debit_operations)
+      @balance = 0
   end
-
   # GET /accounts/new
   def new
     @account = Account.new
@@ -31,7 +34,7 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to new_synthetic_account_path, notice: 'Account was successfully created.' }
+        format.html { redirect_to accounts_path, notice: 'Account was successfully created.' }
         
       else
         format.html { render :new }
@@ -72,6 +75,6 @@ class AccountsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def account_params
-      params.require(:account).permit(:code, :name, :description, :balance, :account_type_id )
+      params.require(:account).permit(:code, :name, :analytic, :parent_id, :description, :balance, :account_type_id )
     end
 end

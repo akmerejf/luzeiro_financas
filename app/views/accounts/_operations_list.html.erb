@@ -1,0 +1,24 @@
+<% ops.sort_by{|op| op.id}.each do |op| %>
+<tbody>
+  <tr>
+    <td><%= op.operation_date %></td>
+    <td><%= op.id %></td>
+    <td>
+      <%= op.retrieve_account.name %>
+    </td>
+    <% if op.authorized? %>
+      <td><%= op.debit_balance(@account) %></td>           
+      <td><%= op.credit_balance(@account) %></td>
+      <td><%= @balance %></td>
+    <% @balance += op.debit_balance(@account) + op.credit_balance(@account)%>
+    <% else %>
+      <td> Autorização Pendente</td>
+    <% end %>
+    
+    
+    
+      
+  </tr>
+</tbody>
+<% end %>
+

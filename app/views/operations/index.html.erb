@@ -12,11 +12,10 @@
 
 
   </div>
-    
-    <%= line_chart Operation.group_by_day(:created_at).count %>
+
     <div class="col-md-6">
       <div class="pull-right arredaplanodecontas">
-        <%= render "search" %>
+        
       </div>
     </div>
   </div>
@@ -41,21 +40,24 @@
           <% @operations.each do |op| %>
           <tbody>
             <tr>
-              <td><%= op.release_date.strftime("%d/%m/%Y") %></td>
+              <td></td>
               <td><%= op.id %></td>
               <td><%= op.retrieve_account.name %></td>
               <td><%= op.release_account.name %></td>
               <td>
-                <%= number_to_currency(op.value, unit: "R$", separator: ",", delimiter: ".")  %>
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#o<%= op.id %>">
+                  <%= number_to_currency(op.value, unit: "R$", separator: ",", delimiter: ".")  %>
+                </button>
               </td>
-              <%= render 'details_modal' %>
-                <% if op.unauthorized? %>
-                <td><%= link_to 'Autorizar', authorize_operation_path(op.id), method: :post, class: "btn-primary btn-sm", data: { confirm: 'Confirme o lançamento.' } %></td>
-                <% else %>
+              
+               
+                <td><%= link_to 'Autorizar', authorize_operation_path(op.id), method: :post, class: "btn-primary btn-sm", data: { confirm: 'Confirme o lançamento.' } if !op.authorized?  %></td>
+                
                 <td><%= link_to 'Lançado', '#', class: "btn-success btn-sm" %></td>
-                <% end %>
-                <td><%= link_to 'Detalhes', operation_path(op), class: "btn-primary btn-sm", method: :get, remote: true 
+                
+                <td><%= link_to 'Detalhes', operation_path(op), class: "btn-primary btn-sm", remote: true 
                  %></td>
+                 <%= render 'details_modal', locals: {operation: op} %>
 
                 <td><%= link_to 'Desfazer', op, method: :delete, data: { confirm: 'Você tem certeza que deseja desfazer a operação? O valor da operação será creditado/debitado nas respectivas contas.' }, class: "btn-danger btn-sm" %></td>
             </tr>
@@ -63,9 +65,8 @@
           <% end %>
           <% end %>
           </table>
-
+          
         </div>
       </div>
-    <div class="col-md-12"><%= will_paginate @operations, class: "apple_pagination" %></div>
   </div>
 </div>

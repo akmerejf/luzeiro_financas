@@ -1,47 +1,15 @@
 class OperationsController < ApplicationController
-  include OperationsHelper
-
-  before_action :authenticate_user!
-  before_action :set_operation, only: [:show, :edit, :update,  :destroy, :authorize_operation]
+  before_action :set_operation, only: [:show, :edit, :update, :authorize_operation, :destroy]
 
   # GET /operations
   # GET /operations.json
   def index
-    @q = Operation.ransack(params[:q])
-     
-    @operations = @q.result.paginate(:page => params[:page], :per_page => 20  ).order('release_date asc')
-    
-    respond_to do |format|
-      format.html
-
-      format.pdf do
-        render pdf: "relatório",
-
-        :header => {
-                  :html => {
-                     :template => 'layouts/pdf-header.html',
-                     :layout => 'pdf-header.html'
-
-                  }
-               },
-               :footer => {
-                  :html => {
-                     :template => 'layouts/pdf-footer.html'
-                  }
-               }
-
-    end
-  end
+    @operations = Operation.all
   end
 
   # GET /operations/1
   # GET /operations/1.json
   def show
-    respond_to do |format|
-        format.html # show.html.erb
-        format.js # show.js.erb
-        format.json { render json: @operation }
-    end
   end
 
   # GET /operations/new
@@ -49,19 +17,19 @@ class OperationsController < ApplicationController
     @operation = Operation.new
   end
 
-  # # GET /operations/1/edit
-  # def edit
-  # end
+  # GET /operations/1/edit
+  def edit
+  end
 
   # POST /operations
   # POST /operations.json
   def create
+    @operation = Operation.new(operation_params)
+
     respond_to do |format|
-      @operation = Operation.new(operation_params)
-
       if @operation.save
-         format.html { redirect_to operations_path, notice: 'Operação criada com sucesso. Necessita ser autorizada.' }
-
+        format.html { redirect_to @operation, notice: 'Operation was successfully created.' }
+        format.json { render :show, status: :created, location: @operation }
       else
         format.html { render :new }
         format.json { render json: @operation.errors, status: :unprocessable_entity }
@@ -69,32 +37,28 @@ class OperationsController < ApplicationController
     end
   end
 
-  # # PATCH/PUT /operations/1
-  # # PATCH/PUT /operations/1.json
-  # def update
-
-  #   respond_to do |format|
-  #     if @operation.update(operation_params)
-  #       redirect_to update_balance_path, method: :put; return if performed?
-  #       format.html { redirect_to ledger_path, notice: 'Operation was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @operation }
-  #     else
-  #       format.html { render :edit }
-  #       format.json { render json: @operation.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  # PATCH/PUT /operations/1
+  # PATCH/PUT /operations/1.json
+  def update
+    respond_to do |format|
+      if @operation.update(operation_params)
+        format.html { redirect_to @operation, notice: 'Operation was successfully updated.' }
+        format.json { render :show, status: :ok, location: @operation }
+      else
+        format.html { render :edit }
+        format.json { render json: @operation.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # DELETE /operations/1
   # DELETE /operations/1.json
   def destroy
-    authorize @operation
     @operation.destroy
-      respond_to do |format|
-        format.html { redirect_to operations_url, notice: 'Operação removida, valores atualizados.' }
-        format.json { head :no_content }
-      end
-
+    respond_to do |format|
+      format.html { redirect_to operations_url, notice: 'Operation was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   # POST /operation
@@ -115,15 +79,7 @@ class OperationsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-  def operation_params
-     params.require(:operation).permit(:value, :description, :release_date, :retrieve_account_id, :release_account_id)
-  end
-
-
-
-
-
-
-
-
+    def operation_params
+      params.require(:operation).permit(:value, :release_account_id, :retrieve_account_id, :operation_date)
+    end
 end

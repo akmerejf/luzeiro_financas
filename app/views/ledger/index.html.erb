@@ -1,3 +1,5 @@
+
+
 <div class="container-fluid">
   <div class="col-md-12">
     
@@ -21,35 +23,46 @@
              <% end %>
             <% end %>
             
-      <table class="table">
-        <thead>
-          <tr>
-          	<th>Código</th>
-	       <th>Nome</th>
-	       <th>Saldo</th>
-	       <th>  </th>
-          </tr>
-        </thead>
-        <tbody>
-        
-          <% @analytic_accounts.each do |analytic_account| %>
-	     <tr>
-	       <td><%= analytic_account.second_synthetic_account.synthetic_account.account.account_type.code %>.<%= analytic_account.second_synthetic_account.synthetic_account.account.code %>.<%= analytic_account.second_synthetic_account.synthetic_account.code %>.<%= analytic_account.second_synthetic_account.code %>.<%= analytic_account.code %>
-	       </td>
-	       <td>
-        	    <%= button_to analytic_account.second_synthetic_account.synthetic_account.account.account_type.name, account_type_path(analytic_account.second_synthetic_account.synthetic_account.account.account_type), class: "btn btn-primary icon-btn btn-xs",method: :get%>
-        	    <%= button_to analytic_account.second_synthetic_account.synthetic_account.account.name.downcase, account_path(analytic_account.second_synthetic_account.synthetic_account.account), class: "btn btn-primary icon-btn btn-xs",method: :get%>
-        	    <%= button_to analytic_account.second_synthetic_account.synthetic_account.name.downcase, synthetic_account_path(analytic_account.second_synthetic_account.synthetic_account), class: "btn btn-primary icon-btn btn-xs",method: :get%>
-        	    <%= button_to analytic_account.second_synthetic_account.name.downcase, second_synthetic_account_path(analytic_account.second_synthetic_account), class: "btn btn-primary icon-btn btn-xs",method: :get%>
-        	    <%= button_to analytic_account.name.downcase, analytic_account_path(analytic_account), class: "btn btn-primary icon-btn btn-xs",method: :get%>
-      	       </td>
-      	       <td><%= number_to_currency(analytic_account.balance, unit: "R$", separator: ",", delimiter: ".")%></td>
-      	       <td><%= link_to 'Ver Livro Razão', analytic_ledger_path(analytic_account), class: "btn btn-success btn-sm" %></td>
-	     </tr>
+        <div class="col-md-12">
+          <% @accounts.each do |account| %>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Nome</th>
+                  <th>Descrição</th>
+                  <th>Saldo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><%= account.code %></td>
+                  <td><%= account.name %></td>
+                  <td><%= account.description %></td>
+                  <td><%= account.balance %></td>
+                </tr>
+              </tbody>
+            </table>
+            <% account.descendants.each do |child| %>
+              <div class="row">
+                <div class="col-md-12">
+                  <table class="table table-hover">
+                    
+                    <tbody>
+                      <tr>
+                        <td><%= child.code %></td>
+                        <td><%= child.name %></td>
+                       
+                        <td><%= child.balance %></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            <% end %>
           <% end %>
-        </tbody>
-      </table>
+      </div>
     </div>
-    <div class="col-md-12"><%= will_paginate @analytic_accounts, class: "apple_pagination" %></div>
+    <div class="col-md-12"><%= will_paginate @accounts, class: "apple_pagination" %></div>
   </div>
 </div>

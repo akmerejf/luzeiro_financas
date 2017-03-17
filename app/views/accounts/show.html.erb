@@ -1,31 +1,32 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+  <h1 class="page-header"><strong>Livro Razão <br><%= @account.name %></strong></h1>
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center"><strong></strong></div>
+      <table class="table ">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Número da Operação</th>
+            
+            <th>Contrapartida</th>
+            <th>Débito</th>
+            <th>Crédito</th>
+            <th>Saldo Anterior</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+       
+        <%= render 'operations_list', ops: @operations, acc: @account %>
+        
+        
+        <tr><tr><tr><tr><tr><tr><td><td><td><td><td><strong>Total: </strong><td>
+        <strong><%= @account.balance_value(@account)%></strong></td></tr>
+          </table>  
+      
+    </div>
 
-<p>
-  <strong>Code:</strong>
-    <%= @account.account_type.code %>.<%= @account.code %>
-</p>
+  </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @account.name %>
-</p>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @account.description %>
-</p>
-
-<p>
-  <strong>Balance:</strong>
-  <%= @account.balance %>
-</p>
-
-<p>
-  <strong>Account type:</strong>
-  <%= @account.account_type.name %>
-</p>
-
-
-
-<%= link_to 'Edit', edit_account_path(@account) %> |
-<%= link_to 'Back', accounts_path %>

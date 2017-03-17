@@ -1,12 +1,43 @@
 class Account < ActiveRecord::Base
   
-  belongs_to :account_type
+  has_ancestry
+  has_many :balances, dependent: :destroy
+  has_many :operations, through: :balances
   
-
-  has_many :synthetic_accounts, dependent: :destroy
+  before_create :account_name, :account_code
   
   def account_name
-    "#{account_type.code}.#{code} - #{name}"
+
+  	unless root?
+  		
+  		self.name = "#{self.parent.name} #{self.name}"
+    else
+      self.name
+  	end
+  	
   end
 
+  def account_code
+
+    unless root?
+      self.code = "#{self.parent.code}.#{self.code}"
+    end
+    
+  end
+
+  def balance_value account
+      n = 0
+      if account.children?
+        account.descendants.where(analytic: true).each {|d| n += d.balances.sum(:value)}
+        n
+      else
+        if account.analytic?
+           account.balances.sum(:value)
+        end
+      end
+  end
+
+
+
 end
+

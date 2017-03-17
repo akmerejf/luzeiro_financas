@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  value: 1.5
-  description: MyText
-  release_date: 2016-07-01
+  value: 9.99
+  release_account: MyString
+  retrieve_account: MyString
+  operation_date: 2017-03-06
 
 two:
-  value: 1.5
-  description: MyText
-  release_date: 2016-07-01
+  value: 9.99
+  release_account: MyString
+  retrieve_account: MyString
+  operation_date: 2017-03-06
