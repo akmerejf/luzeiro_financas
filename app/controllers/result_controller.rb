@@ -14,8 +14,8 @@ class ResultController < ApplicationController
 	  @init_date = params[:date_init].to_date.strftime("%Y/%m/%d") 
       @final_date = params[:date_final].to_date.strftime("%Y/%m/%d") 
 
-      @receita = Account.receita.descendants.analytic
-      @custo_despesa = Account.custo_despesa.descendants.analytic
+      @receita_operacional = Account.receita_operacional
+      @custo = Account.custo
 
       
     end

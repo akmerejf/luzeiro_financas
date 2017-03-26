@@ -53,19 +53,29 @@ class Account < ActiveRecord::Base
     
   end
 
-  def self.custo_despesa
+  def self.receita
       find_by(code: 3)
-    
   end
 
-  def self.receita
+  def self.custo
       find_by(code: 4)
+  end
+
+  def self.despesa
+      find_by(code: 5)
   end
 
   def self.analytic
       where(analytic: true)
     
   end
+
+  def self.receita_operacional
+    find_by(code: '3.1')
+  end
+
+
+
 
 
 
