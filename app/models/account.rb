@@ -37,6 +37,36 @@ class Account < ActiveRecord::Base
       end
   end
 
+  def self.name_search search
+
+    where("NAME like ?", search)
+    
+  end
+
+  def self.ativo
+      find_by(code: 1)
+    
+  end
+
+  def self.passivo
+      find_by(code: 2)
+    
+  end
+
+  def self.custo_despesa
+      find_by(code: 3)
+    
+  end
+
+  def self.receita
+      find_by(code: 4)
+  end
+
+  def self.analytic
+      where(analytic: true)
+    
+  end
+
 
 
 end

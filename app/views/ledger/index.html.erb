@@ -17,7 +17,7 @@
         </div>
       </div>
           <%= form_tag ledger_path, :method => "get", class: "form-search" do %>
-            <%= text_field_tag :name, params[:name], class:" search",placeholder: "Buscar" %>
+            <%= text_field_tag :name, params[:name], class: "search",placeholder: "Buscar" %>
             <%= button_tag(type: "submit") do %>
             <span class="fa fa-search"></span>
              <% end %>
@@ -39,7 +39,7 @@
                   <td><%= account.code %></td>
                   <td><%= account.name %></td>
                   <td><%= account.description %></td>
-                  <td><%= account.balance %></td>
+                  <td><%= account.balance_value(account) %></td>
                 </tr>
               </tbody>
             </table>
@@ -53,7 +53,7 @@
                         <td><%= child.code %></td>
                         <td><%= child.name %></td>
                        
-                        <td><%= child.balance %></td>
+                        <td><%= child.balance_value(child) %></td>
                       </tr>
                     </tbody>
                   </table>

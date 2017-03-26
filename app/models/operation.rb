@@ -10,7 +10,7 @@ class Operation < ActiveRecord::Base
   def authorize
     unless destroyed?     
 		Balance.create(operation: self, account: self.retrieve_account, value:  self.value, nature: 1)
-		Balance.create(operation: self, account: self.release_account, value: -self.value, nature: -1)
+		Balance.create(operation: self, account: self.release_account, value: - self.value, nature: -1)
     end
   end
 
@@ -37,6 +37,10 @@ class Operation < ActiveRecord::Base
         end
       
   end 
+
+  def self.date_search init, final
+      where(operation_date: init..final)
+  end
 
   
 

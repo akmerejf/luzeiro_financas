@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   resources :operations
-  resources :results
   resources :operations, except: [:edit, :update] 
   resources :accounts
   resources :chart_of_accounts
@@ -20,8 +19,8 @@ devise_for :users, controllers: {
 
   
   
-  get 'checar_data', to: 'results#check_valid_date', as: :check_valid_date
-  get 'selecionar_periodo', to: 'results#selecionar_periodo', as: :result_search
+  get 'resultado/selecionar_periodo', to: 'result#index', as: :result
+  get 'resultado/atual', to: 'result#show', as: :show_result
   get 'control_users/index'
   get 'dashboard', to: 'welcome#dashboard', as: :dashboard
   get 'livro_diario', to: 'operations#index', as: :daily_ledger

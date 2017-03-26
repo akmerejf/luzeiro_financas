@@ -5,7 +5,7 @@ class AccountsController < ApplicationController
   # GET /accounts
   # GET /accounts.json
   def index
-    @accounts = Account.roots
+    @accounts = Account.roots.order("CODE ASC")
   end
 
   # GET /accounts/1

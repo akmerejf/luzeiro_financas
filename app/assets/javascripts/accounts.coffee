@@ -5,3 +5,4 @@
 
 $(document).on "turbolinks:load", -> 
   $('.parent_account').select2()
+return

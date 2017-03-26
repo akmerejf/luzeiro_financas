@@ -6,6 +6,7 @@
 $(document).on "turbolinks:load", -> 
   setTimeout (->
     $('.alert').slideUp()
-    return
+    
   ), 3000
+  return
   return
