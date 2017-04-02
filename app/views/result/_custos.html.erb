@@ -1,20 +1,20 @@
 <table class="table table-active">
   <thead>
     <tr>
-      <th>Receita Operacional Bruta</th>
+      <th>Custos</th>
       <th></th>
-      <th>Valor</th>
+      <th></th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
-  <% @receita_operacional.each do |receita| %>
+  <% @custos.each do |custo| %>
 
   <tbody>
     <tr>
-      <td><%= receita.code %></td>
-      <td><%= receita.name %></td>
-      <td><%= receita.valor_receita(@init_date, @final_date)%></td>
+      <td><%= custo.code %></td>
+      <td><%= custo.name %></td>
+      <td><%= custo.balances.sum(:value) %></td>
 
     </tr>
   </tbody>
@@ -23,7 +23,7 @@
     <tr>
       <td></td>
       <td><strong class="pull-right">Total:</strong></td>
-      <td> <%= @receita_bruta %> </td>
+      <td> <%= @custo_total %> </td>
     </tr>
   </tbody>
 </table>

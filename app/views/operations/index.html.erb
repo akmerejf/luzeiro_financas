@@ -40,7 +40,7 @@
           <% @operations.each do |op| %>
           <tbody>
             <tr>
-              <td></td>
+              <td><%= op.operation_date.strftime("%d/%m/%Y") if op.operation_date %></td>
               <td><%= op.id %></td>
               <td><%= op.retrieve_account.name %></td>
               <td><%= op.release_account.name %></td>

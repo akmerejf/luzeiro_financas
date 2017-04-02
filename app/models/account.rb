@@ -4,18 +4,7 @@ class Account < ActiveRecord::Base
   has_many :balances, dependent: :destroy
   has_many :operations, through: :balances
   
-  before_create :account_name, :account_code
-  
-  def account_name
 
-  	unless root?
-  		
-  		self.name = "#{self.parent.name} #{self.name}"
-    else
-      self.name
-  	end
-  	
-  end
 
   def account_code
 
@@ -70,14 +59,11 @@ class Account < ActiveRecord::Base
     
   end
 
-  def self.receita_operacional
-    find_by(code: '3.1')
-  end
-
-
-
-
-
+ def valor_receita init, final
+  value = 0
+    self.operations.where(operation_date: init..final).each {|op| value +=op.balances.where(nature: 1).sum(:value)}
+  value
+ end
 
 end
 

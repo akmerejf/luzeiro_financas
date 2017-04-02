@@ -42,6 +42,14 @@ class Operation < ActiveRecord::Base
       where(operation_date: init..final)
   end
 
+  def self.operations_by_date init, final
+        value = 0.0
+        where(operation_date: init..final).each do |op|
+          value += op.balances.sum(:value)
+        end
+        value
+  end
+
   
 
 
