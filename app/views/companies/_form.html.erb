@@ -1,5 +1,5 @@
 <div class="container">
-    <%= form_for(@company) do |f| %>
+    <%= simple_form_for(@company, html: { class: 'form-control' }) do |f| %>
 
     	<div class="row">
             <% if @company.errors.any? %>
@@ -52,38 +52,41 @@
                     </ul>
                 </div>
 
-                <form role="form">
-                    <div class="tab-content">
-                        <div class="tab-pane active" role="tabpanel" id="step1">
-                            <%= render 'passo_um_companhia', f: f %>
-                            
-                            <button type="button" class="btn btn-primary next-step list-inline pull-right">Salvar e continuar</button>
-                           
-                        </div>
-                        <div class="tab-pane" role="tabpanel" id="step2">
-                            <h3>Step 2</h3>
-                            <p>This is step 2</p>
-                            <ul class="list-inline pull-right">
-                                <li><button type="button" class="btn btn-default prev-step">Voltar</button></li>
-                                <li><button type="button" class="btn btn-primary next-step">>Salvar e continuar</button></li>
-                            </ul>
-                        </div>
-                        <div class="tab-pane" role="tabpanel" id="step3">
-                            <h3>Step 3</h3>
-                            <p>This is step 3</p>
-                            <ul class="list-inline pull-right">
-                                <li><button type="button" class="btn btn-default prev-step">Voltar</button></li>
-                                <li><button type="button" class="btn btn-default next-step">Pular</button></li>
-                                <li><button type="button" class="btn btn-primary btn-info-full next-step">Salvar e continuar</button></li>
-                            </ul>
-                        </div>
-                        <div class="tab-pane" role="tabpanel" id="complete">
-                            <h3>Complete</h3>
-                            <p>You have successfully completed all steps.</p>
-                        </div>
-                        <div class="clearfix"></div>
+                
+                <div class="tab-content">
+                    <div class="tab-pane active" role="tabpanel" id="step1">
+                        <%= render 'passo_um_companhia', f: f %>
+                        
+                        <button type="button" class="btn btn-primary next-step list-inline pull-right">Salvar e continuar</button>
+                       
                     </div>
-                </form>
+                    <div class="tab-pane" role="tabpanel" id="step2">
+                        <%= render 'passo_dois_info_adicionais', f: f %>
+                        <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-default prev-step">Voltar</button></li>
+                            <li><button type="button" class="btn btn-primary next-step">Salvar e continuar</button></li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="step3">
+                        <%= render "passo_tres_endereco", f: f %>
+                        <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-default prev-step">Voltar</button></li>
+                            <li><button type="button" class="btn btn-default next-step">Pular</button></li>
+                            <li><button type="button" class="btn btn-primary btn-info-full next-step">Salvar e continuar</button></li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="complete">
+                     <div class="row ">
+                         <div class="col-md-12">
+                            <h3 class="">Formulário Completo</h3>
+                            <p>Agora clique em "Finalizar" para criar sua empresa.</p>
+                            <button type="submit" class="btn btn-success pull-right">Finalizar</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    
+                </div>
+                
             </div>
         </section>
        </div>

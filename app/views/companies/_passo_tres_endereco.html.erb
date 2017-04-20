@@ -1,0 +1,37 @@
+<div class="row ">
+  <%= f.simple_fields_for :address do |a| %>
+   
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <div class="field">
+            <%= a.input :cep, label: "CEP" %>
+          </div>
+        </div>
+       
+        <div class="col-md-4">
+          <div class="field">
+            <%= a.input :street, label: "Logradouro" %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="field">
+            <%= a.input :number, label: "Número" %>
+          </div>
+          
+        </div>
+        <div class="col-md-4">
+          <div class="field">
+            <%= a.input :district, label: "Bairro" %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="field">
+            <%= a.input :state, label: "Estado" %>
+          </div>
+        </div>
+
+    </div>
+  <% end %>
+</div>
+
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170313175608) do
+ActiveRecord::Schema.define(version: 20170420134101) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "code",        limit: 255
@@ -24,6 +24,19 @@ ActiveRecord::Schema.define(version: 20170313175608) do
   end
 
   add_index "accounts", ["ancestry"], name: "index_accounts_on_ancestry", using: :btree
+
+  create_table "addresses", force: :cascade do |t|
+    t.integer  "company_id", limit: 4
+    t.string   "cep",        limit: 255
+    t.string   "number",     limit: 255
+    t.string   "street",     limit: 255
+    t.string   "district",   limit: 255
+    t.string   "state",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "addresses", ["company_id"], name: "index_addresses_on_company_id", using: :btree
 
   create_table "balances", force: :cascade do |t|
     t.decimal  "value",                  precision: 10, scale: 2
@@ -47,14 +60,19 @@ ActiveRecord::Schema.define(version: 20170313175608) do
   add_index "chart_of_accounts", ["company_id"], name: "index_chart_of_accounts_on_company_id", using: :btree
 
   create_table "companies", force: :cascade do |t|
-    t.string   "name",          limit: 255
-    t.string   "cnpj",          limit: 255
-    t.string   "field_of_work", limit: 255
-    t.string   "address",       limit: 255
-    t.string   "cep",           limit: 255
-    t.integer  "user_id",       limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "name",                limit: 255
+    t.string   "cnpj",                limit: 255
+    t.integer  "user_id",             limit: 4
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "fantasy_name",        limit: 255
+    t.string   "social_denomination", limit: 255
+    t.string   "phone",               limit: 255
+    t.string   "state_insc",          limit: 255
+    t.string   "local_insc",          limit: 255
+    t.string   "suprama",             limit: 255
+    t.string   "nire",                limit: 255
+    t.date     "started_at"
   end
 
   add_index "companies", ["user_id"], name: "index_companies_on_user_id", using: :btree
@@ -71,17 +89,6 @@ ActiveRecord::Schema.define(version: 20170313175608) do
 
   add_index "operations", ["release_account_id"], name: "index_operations_on_release_account_id", using: :btree
   add_index "operations", ["retrieve_account_id"], name: "index_operations_on_retrieve_account_id", using: :btree
-
-  create_table "results", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.text     "description", limit: 65535
-    t.string   "kind",        limit: 255
-    t.decimal  "balance",                   precision: 10, scale: 2, default: 0.0
-    t.date     "init"
-    t.date     "final"
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
-  end
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -112,6 +119,7 @@ ActiveRecord::Schema.define(version: 20170313175608) do
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "addresses", "companies"
   add_foreign_key "balances", "accounts"
   add_foreign_key "balances", "operations"
   add_foreign_key "chart_of_accounts", "companies"
