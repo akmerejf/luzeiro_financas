@@ -4,7 +4,7 @@ class Company < ActiveRecord::Base
   has_many :accounts, through: :balances
   has_one :chart_of_account, autosave: true, dependent: :destroy
 
-  validates_presence_of :chart_of_account
+  validates :chart_of_account, :name, presence: true
   accepts_nested_attributes_for :chart_of_account
 
 end

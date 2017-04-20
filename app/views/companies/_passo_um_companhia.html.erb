@@ -1,0 +1,40 @@
+    
+        <div class="row">
+            <div class="col-md-4">
+                <div class="field">
+                    <%= f.label :name %><br>
+                    <%= f.text_field :name %>
+                </div>
+                <div class="field" >
+                  <%= f.label :cnpj %><br>
+                  <%= f.text_field :cnpj,  id: "cnpj"%>
+                </div>
+
+                <div class="field">
+                  <%= f.label :field_of_work %><br>
+                  <%= f.text_field :field_of_work %>
+                </div>
+                <div class="field">
+                  <%= f.label :address %><br>
+                  <%= f.text_field :address %>
+                </div>
+                <div class="field">
+                  <%= f.label :cep %><br>
+                  <%= f.text_field :cep, id: "cep" %>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+              <p>
+                <h3>Plano de contas:</h3>
+              </p>
+              <%= f.fields_for :chart_of_account do |chart_of_account_fields| %>
+                <%= chart_of_account_fields.label :title %>
+                <%= chart_of_account_fields.text_field :title %>
+              <% end %>
+            </div>
+        </div>
+
+    <div class="actions">
+        <%= f.submit %>
+    </div>
