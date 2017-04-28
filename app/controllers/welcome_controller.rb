@@ -1,7 +1,7 @@
 class WelcomeController < ApplicationController
   before_action :authenticate_user!
   def dashboard
-    
+    @companies = Company.all    
     respond_to do |format|
       format.html
       format.pdf do

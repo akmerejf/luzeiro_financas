@@ -1,66 +1,162 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="col-sm-12 offset-sm-3 col-md-12 offset-md-2 main">
-        <h1><strong>Dashboard</strong></h1>
-        <br>
-          
-      </div>    
+
+<div class="container-fluid display-table">
+    <div class="row display-table-row">
+        <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
+            <div class="logo">
+                <a hef="home.html"><img src="http://jskrishna.com/work/merkury/images/logo.png" alt="merkery_logo" class="hidden-xs hidden-sm">
+                    <img src="http://jskrishna.com/work/merkury/images/circle-logo.png" alt="merkery_logo" class="visible-xs visible-sm circle-logo">
+                </a>
+            </div>
+            <div class="navi">
+                <ul>
+                    <li class="active"><a href="#"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
+                    <li><a href="#"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Workflow</span></a></li>
+                    <li><a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Statistics</span></a></li>
+                    <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Calender</span></a></li>
+                    <li><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Users</span></a></li>
+                    <li><a href="#"><i class="fa fa-cog" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Setting</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-10 col-sm-11 display-table-cell v-align">
+            <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+            <div class="row">
+                <header>
+                    <div class="col-md-7">
+                        <nav class="navbar-default pull-left">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="offcanvas" data-target="#side-menu" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                        </nav>
+                        <div class="search hidden-xs hidden-sm">
+                            <input type="text" placeholder="Search" id="search">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="header-rightside">
+                            <ul class="list-inline header-top pull-right">
+                                <li class="hidden-xs"><a href="#" class="add-project" data-toggle="modal" data-target="#add_project">Nova Empresa</a></li>
+                                <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                                <li>
+                                    <a href="#" class="icon-info">
+                                        <i class="fa fa-bell" aria-hidden="true"></i>
+                                        <span class="label label-primary">3</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.username %>
+                                        <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <div class="navbar-content">
+                                                <span><%= current_user.username.upcase %></span>
+                                                <p class="text-muted small">
+                                                    <%= current_user.email %>
+                                                </p>
+                                                <div class="divider">
+                                                </div>
+                                                <a href="#" class="view btn-sm active">View Profile</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </header>
+            </div>
+            <div class="user-dashboard">
+                <h1>Olá, <%= current_user.username %></h1>
+                <div class="row">
+                    <div class="col-md-12">
+                      
+                      <%= form_tag companies_path, method: 'get' do %>
+                        <div class="input-group">
+                          <%= text_field_tag :search, params[:search], class: 'form-control' , placeholder: 'Pesquisar Empresas'%>
+                          <!-- <input type="text" class="form-control" placeholder="Procurando algum produto?"> -->
+                              <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default">
+                                  <span class="fa fa-search">
+                                    <span class="sr-only">Pesquisar</span>
+                                  </span>
+                                </button>
+                            </span>
+                        </div>
+                            <small><%= icon('info-circle')%> Você pode pesquisar por Nome ou CNPJ da Empresa </s></small>
+                            <%if params[:search].present?%>
+                              <p><b>Pesquisando por:</b> "<%= params[:search]%>"</p>
+                            <% end %>
+                          <% end %>
+                          <p class="text-right"><%= link_to icon('plus', "Cadastrar Empresa"),new_company_path, class: "btn btn-primary", method: :get%></p>
+                          <div class="panel panel-default">
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th>Nome Jurídico</th>
+                                  <th>Nome Fantasia</th>
+                                  <th>CNPJ</th>
+                                  <th>Tipo</th>
+                                  <th>Denominação social</th>
+                                  <th>Situação</th>
+                                  <th colspan="3"></th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                <% @companies.each do |company| %>
+                                <tr>
+                                  <td>
+                                      <button type="button" class="btn btn-link" data-toggle="modal" data-target="#s<%= company.id %>">
+                                        <%= company.name %>  
+                                      </button>
+                                    </td>
+                                  <td><%= company.fantasy_name %></td>
+                                  <td><%= company.cnpj %></td>
+                                  <td><%= company.tipo %>
+                                  <br><%= company.social_denomination %></td>
+                                  <td><%= company.situation %></td>                          
+                                </tr>
+                                <% end %>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-12">
 
-      <div class="col-md-6">
-        <div class="info-box bg-aqua">
-          <span class="info-box-icon">
-            <%= link_to ledger_path do %>
-            <i class="fa fa-object-group" aria-hidden="true"></i>
-            <% end %>
-          </span>
-          <div class="info-box-content">
-            <span class="info-box-text">Veja o detalhamento de suas contas</span>
-          </div>
-        </div>
-      </div>
+</div>
 
-      <div class="col-md-6">
-        <div class="info-box bg-aqua">
-          <span class="info-box-icon">
-            <%= link_to new_operation_path do %>
-            <i class="fa fa-tasks" aria-hidden="true"></i>
-            <% end %>
-          </span>
-          <div class="info-box-content">
-            <span class="info-box-text">Crie operações entre suas contas</span>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-md-6">
-        <div class="info-box bg-aqua">
-          <span class="info-box-icon">
-            <%= link_to wizard_index_path do %>
-            <i class="fa fa-briefcase" aria-hidden="true"></i>
-            <% end %>
-          </span>
-          <div class="info-box-content">
-            <span class="info-box-text">Crie e gerencie suas contas</span>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-md-6">
-        <div class="info-box bg-aqua">
-          <span class="info-box-icon">
-            <%= link_to results_path do %>
-            <i class="fa fa-check-square-o" aria-hidden="true"></i>
-            <% end %>
-          </span>
-          <div class="info-box-content">
-            <span class="info-box-text">Lance resultados e tenha um detalhamento maior de suas atividades</span>
-          </div>
+<!-- Modal -->
+<div id="add_project" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header login-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Nova Empresa</h4>
+            </div>
+            <div class="modal-body">
+                        <input type="text" placeholder="Project Title" name="name">
+                        <input type="text" placeholder="Post of Post" name="mail">
+                        <input type="text" placeholder="Author" name="passsword">
+                        <textarea placeholder="Desicrption"></textarea>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel" data-dismiss="modal">Close</button>
+                <button type="button" class="add-project" data-dismiss="modal">Save</button>
+            </div>
         </div>
-      </div>
 
     </div>
-  </div>
 </div>

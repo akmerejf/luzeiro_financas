@@ -1,42 +1,66 @@
-<div class="container">
-  <div class="row">
-    <p id="notice"><%= notice %></p>
-
-    <h1>Listing Companies</h1>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Cnpj</th>
-          <th>Field of work</th>
-          <th>Address</th>
-          <th>Cep</th>
-          <th>User</th>
-          <th></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @companies.each do |company| %>
-        <tr>
-          <td><%= company.name %></td>
-          <td><%= company.cnpj %></td>
-          <td><%= company.field_of_work %></td>
-          <td><%= company.address %></td>
-          <td><%= company.cep %></td>
-          <td><%= company.user %></td>
-          <td><%= link_to 'Show', company, class: "btn-primary btn-sm" %>
-          <%= link_to 'Edit', edit_company_path(company), class: "btn-primary btn-sm" %>
-          <%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-primary btn-sm" %></td>
-        </tr>
+<p id="notice"><%= notice %></p>
+<div class="container-fluid"> 
+  <div class="col md-12">
+    <div class="row">
+      <ol class="breadcrumb">
+        <li><%= link_to icon('home'), root_path%></li>
+        <li class="active">Alunos</li>
+      </ol>
+      <h1><%= link_to icon('arrow-left'), welcome_index_path %> ALUNOS</h1> 
+      <hr>
+      <%= form_tag companies_path, method: 'get' do %>
+        <div class="input-group">
+          <%= text_field_tag :search, params[:search], class: 'form-control' , placeholder: 'Pesquisar Estudantes'%>
+          <!-- <input type="text" class="form-control" placeholder="Procurando algum produto?"> -->
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">
+              <span class="fa fa-search">
+                <span class="sr-only">Pesquisar</span>
+              </span>
+            </button>
+          </span>
+        </div>
+        <small><%= icon('info-circle')%> Você pode pesquisar por Nome ou Série do Aluno </s></small>
+        <%if params[:search].present?%>
+          <p><b>Pesquisando por:</b> "<%= params[:search]%>"</p>
         <% end %>
-      </tbody>
-    </table>
+      <% end %>
+      <p class="text-right"><%= link_to icon('plus', "Cadastrar Aluno"),new_company_path, class: "btn btn-primary", method: :get%></p>
+      <div class="panel panel-default">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome Jurídico</th>
+              <th>Nome Fantasia</th>
+              <th>CNPJ</th>
+              <th>Tipo</th>
+              <th>Denominação social</th>
+              <th>Situação</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
 
-    <br>
-
-    <%= link_to 'New Company', new_company_path, class: "btn btn-primary" %>
-
+          <tbody>
+            <% @companies.each do |company| %>
+            <tr>
+              <td>
+                  <button type="button" class="btn btn-link" data-toggle="modal" data-target="#s<%= company.id %>">
+                    <%= company.name %>  
+                  </button>
+                </td>
+              <td><%= company.fantasy %></td>
+              <td><%= company.cnpj %></td>
+              <td><%= company.tipo %>
+              <br><%= company.social_denomination %></td>
+              <td><%= company.situation %></td>
+              <td><%= render 'actions', company: company  %></td>
+              <%= render 'details_modal', locals: {company: company}  %>
+              
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

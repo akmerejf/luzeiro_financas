@@ -14,7 +14,7 @@ devise_for :users, controllers: {
       }
 
   authenticated :user do
-      root 'accounts#index', as: :authenticated_root
+      root 'welcome#dashboard', as: :authenticated_root
   end
 
   
@@ -26,7 +26,6 @@ devise_for :users, controllers: {
   get 'livro_diario', to: 'operations#index', as: :daily_ledger
   get 'livro_razao', to: 'ledger#index', as: :ledger
   get 'cadastrar/contas', to: 'form_wizard#index', as: :wizard_index
-  resources :enterprises
   post 'authorize_operation/:id', to: 'operations#authorize_operation', as: :authorize_operation
   get 'analytic_ledger/:id', to: 'analytic_accounts#analytic_ledger', as: :analytic_ledger
   get 'home', to: 'home#visitors', as: :visitors

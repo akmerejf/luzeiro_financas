@@ -1,7 +1,7 @@
 <div class="container">
-    <%= simple_form_for(@company, html: { class: 'form-control' }) do |f| %>
+    <%= simple_form_for(@company) do |f| %>
 
-    	<div class="row">
+        <div class="row">
             <% if @company.errors.any? %>
                 <div id="error_explanation">
                     <h2><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h2>
@@ -12,83 +12,10 @@
                     </ul>
                 </div>
             <% end %>
-    		<section>
-            <div class="wizard">
-                <div class="wizard-inner">
-                    <div class="connecting-line"></div>
-                    <ul class="nav nav-tabs" role="tablist">
-
-
-                        <li role="presentation" class="active">
-                            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
-                                <span class="round-tab">
-                                    <i class="glyphicon glyphicon-folder-open"></i>
-                                </span>
-                            </a>
-                        </li>
-
-                        <li role="presentation" class="disabled">
-                            <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
-                                <span class="round-tab">
-                                    <i class="glyphicon glyphicon-pencil"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li role="presentation" class="disabled">
-                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
-                                <span class="round-tab">
-                                    <i class="glyphicon glyphicon-picture"></i>
-                                </span>
-                            </a>
-                        </li>
-
-                        <li role="presentation" class="disabled">
-                            <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
-                                <span class="round-tab">
-                                    <i class="glyphicon glyphicon-ok"></i>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                
-                <div class="tab-content">
-                    <div class="tab-pane active" role="tabpanel" id="step1">
-                        <%= render 'passo_um_companhia', f: f %>
-                        
-                        <button type="button" class="btn btn-primary next-step list-inline pull-right">Salvar e continuar</button>
-                       
-                    </div>
-                    <div class="tab-pane" role="tabpanel" id="step2">
-                        <%= render 'passo_dois_info_adicionais', f: f %>
-                        <ul class="list-inline pull-right">
-                            <li><button type="button" class="btn btn-default prev-step">Voltar</button></li>
-                            <li><button type="button" class="btn btn-primary next-step">Salvar e continuar</button></li>
-                        </ul>
-                    </div>
-                    <div class="tab-pane" role="tabpanel" id="step3">
-                        <%= render "passo_tres_endereco", f: f %>
-                        <ul class="list-inline pull-right">
-                            <li><button type="button" class="btn btn-default prev-step">Voltar</button></li>
-                            <li><button type="button" class="btn btn-default next-step">Pular</button></li>
-                            <li><button type="button" class="btn btn-primary btn-info-full next-step">Salvar e continuar</button></li>
-                        </ul>
-                    </div>
-                    <div class="tab-pane" role="tabpanel" id="complete">
-                     <div class="row ">
-                         <div class="col-md-12">
-                            <h3 class="">Formulário Completo</h3>
-                            <p>Agora clique em "Finalizar" para criar sua empresa.</p>
-                            <button type="submit" class="btn btn-success pull-right">Finalizar</button>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    
-                </div>
-                
-            </div>
-        </section>
-       </div>
+            <%= render 'passo_um_companhia', f: f %>
+            <%= render 'passo_dois_info_adicionais', f: f %>
+            <%= render "passo_tres_endereco", f: f %>
+            <button type="submit" class="btn btn-success pull-right">Finalizar</button>
+        </div>
     <% end %>
 </div>

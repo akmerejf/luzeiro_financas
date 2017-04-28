@@ -15,8 +15,21 @@ class CompaniesController < ApplicationController
 
   # GET /companies/new
   def new
-    @company = Company.new
-    @chart_of_account = @company.build_chart_of_account
+    
+    if params[:bcnpj]
+      consulta = Company.consulta_cnpj(params[:bcnpj])
+      if consulta
+        @company = consulta
+      end
+         
+    else
+       respond_to do |format|
+          @company = Company.new
+          format.html { render :new, notice: "CNPJ inválido."}
+        end
+    end
+
+    # @chart_of_account = @company.build_chart_of_account
   end
 
   # GET /companies/1/edit
@@ -66,6 +79,10 @@ class CompaniesController < ApplicationController
 
   private
 
+    def busca_cnpj
+
+      
+    end
    
     # Use callbacks to share common setup or constraints between actions.
     def set_company
@@ -74,6 +91,6 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name, :cnpj, :social_denomination, :phone, :state_insc, :suprama, :started_at, :user_id, address_attributes: [:id, :cep, :number, :street, :district, :state], chart_of_account_attributes: [:id, :title, :company_id])
+      params.require(:company).permit(:name, :cnpj, :social_denomination, :situation, :email, :tipo, :special_situation, :situation_date, :motive_situation, :phone, :state_insc, :suprama, :started_at, :user_id, address_attributes: [:id, :cep, :number, :street, :district, :state, :city, :company_id], chart_of_account_attributes: [:id, :title, :company_id])
     end
 end

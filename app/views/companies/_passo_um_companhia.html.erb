@@ -18,12 +18,29 @@
     </div>
     <div class="col-md-8">
       <div class="field" >
-      <%= f.label "Denomonição Social"  %>
-        <%= f.select :social_denomination, ["Sociedade Limitada - Ltda.", "Sociedade Anônima - S.A.", "Empresário Individual", "Empresa Individual de Responsabilidade Limitada"]%>
+        <%= f.input :social_denomination, label: "Denomonição Social"%>
+      </div>
+    </div>
+      <div class="col-md-8">
+        <%= f.text_field :started_at, label: "Início das atividades", class: "form-control date", placeholder: Time.now.strftime("%d/%m/%Y") %>
+      </div>   
+    
+    <div class="col-md-6">
+      <div class="field">
+        <%= f.input :tipo, label: "Tipo" %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="field">
+        <%= f.input :phone, label: "Telefone" %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="field">
+        <%= f.input :capital, label: "Capital Social" %>
       </div>
     </div>
   </div>
-
 </div>
 
   

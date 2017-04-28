@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420134101) do
+ActiveRecord::Schema.define(version: 20170427140639) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "code",        limit: 255
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20170420134101) do
     t.string   "state",      limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "city",       limit: 255
   end
 
   add_index "addresses", ["company_id"], name: "index_addresses_on_company_id", using: :btree
@@ -60,22 +61,44 @@ ActiveRecord::Schema.define(version: 20170420134101) do
   add_index "chart_of_accounts", ["company_id"], name: "index_chart_of_accounts_on_company_id", using: :btree
 
   create_table "companies", force: :cascade do |t|
-    t.string   "name",                limit: 255
-    t.string   "cnpj",                limit: 255
-    t.integer  "user_id",             limit: 4
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "fantasy_name",        limit: 255
-    t.string   "social_denomination", limit: 255
-    t.string   "phone",               limit: 255
-    t.string   "state_insc",          limit: 255
-    t.string   "local_insc",          limit: 255
-    t.string   "suprama",             limit: 255
-    t.string   "nire",                limit: 255
+    t.string   "name",                   limit: 255
+    t.string   "cnpj",                   limit: 255
+    t.integer  "user_id",                limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "fantasy_name",           limit: 255
+    t.string   "social_denomination",    limit: 255
+    t.string   "phone",                  limit: 255
+    t.string   "state_insc",             limit: 255
+    t.string   "local_insc",             limit: 255
+    t.string   "suprama",                limit: 255
+    t.string   "nire",                   limit: 255
     t.date     "started_at"
+    t.string   "company",                limit: 255
+    t.string   "situation",              limit: 255
+    t.datetime "last_update"
+    t.string   "status",                 limit: 255
+    t.string   "tipo",                   limit: 255
+    t.string   "email",                  limit: 255
+    t.string   "efr",                    limit: 255
+    t.string   "motive_situation",       limit: 255
+    t.string   "special_situation",      limit: 255
+    t.date     "special_situation_date"
+    t.string   "capital",                limit: 255
+    t.date     "situation_date"
   end
 
   add_index "companies", ["user_id"], name: "index_companies_on_user_id", using: :btree
+
+  create_table "main_activities", force: :cascade do |t|
+    t.text     "description", limit: 65535
+    t.string   "code",        limit: 255
+    t.integer  "company_id",  limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "main_activities", ["company_id"], name: "index_main_activities_on_company_id", using: :btree
 
   create_table "operations", force: :cascade do |t|
     t.decimal  "value",                           precision: 10, scale: 2
@@ -90,12 +113,32 @@ ActiveRecord::Schema.define(version: 20170420134101) do
   add_index "operations", ["release_account_id"], name: "index_operations_on_release_account_id", using: :btree
   add_index "operations", ["retrieve_account_id"], name: "index_operations_on_retrieve_account_id", using: :btree
 
+  create_table "qsas", force: :cascade do |t|
+    t.string   "which",      limit: 255
+    t.string   "name",       limit: 255
+    t.integer  "company_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "qsas", ["company_id"], name: "index_qsas_on_company_id", using: :btree
+
   create_table "roles", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.integer  "code",       limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "sencondary_activities", force: :cascade do |t|
+    t.text     "description", limit: 65535
+    t.string   "code",        limit: 255
+    t.integer  "company_id",  limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "sencondary_activities", ["company_id"], name: "index_sencondary_activities_on_company_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -124,5 +167,8 @@ ActiveRecord::Schema.define(version: 20170420134101) do
   add_foreign_key "balances", "operations"
   add_foreign_key "chart_of_accounts", "companies"
   add_foreign_key "companies", "users"
+  add_foreign_key "main_activities", "companies"
+  add_foreign_key "qsas", "companies"
+  add_foreign_key "sencondary_activities", "companies"
   add_foreign_key "users", "roles"
 end
