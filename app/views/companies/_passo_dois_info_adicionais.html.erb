@@ -1,15 +1,8 @@
-
 <div class="row ">
     <div class="col-md-12">
-       
         <div class="col-md-6">
           <div class="field" >
-           <%= f.input :suprama, label: "SUPRAMA", placeholder: "Insira o SUPRAMA da empresa" %>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="field" >
-           <%= f.input :nire, label: "NIRE", placeholder: "Insira o NIRE da empresa" %>
+           <%= f.input :taxation, collection: ["Micro Empresário Individual - MEI", "Micro Empresário Micro e Empresa de Pequeno Porte - ME EPP"], label: "Reg. Especial de Tributação" %>
           </div>
         </div>
         <div class="col-md-6">

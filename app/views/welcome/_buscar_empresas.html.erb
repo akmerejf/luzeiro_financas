@@ -1,0 +1,18 @@
+
+<%= form_tag companies_path, method: 'get' do %>
+<div class="input-group">
+<%= text_field_tag :search, params[:search], class: 'form-control' , placeholder: 'Pesquisar Empresas'%>
+<!-- <input type="text" class="form-control" placeholder="Procurando algum produto?"> -->
+    <span class="input-group-btn">
+      <button type="submit" class="btn btn-default">
+        <span class="fa fa-search">
+          <span class="sr-only">Pesquisar</span>
+        </span>
+      </button>
+  </span>
+</div>
+  <small><%= icon('info-circle')%> Você pode pesquisar por Nome ou CNPJ da Empresa </s></small>
+  <%if params[:search].present?%>
+    <p><b>Pesquisando por:</b> "<%= params[:search]%>"</p>
+  <% end %>
+<% end %>

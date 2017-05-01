@@ -7,7 +7,7 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
+  <% if @receita_operacional %>
   <% @receita_operacional.each do |receita| %>
 
   <tbody>
@@ -18,6 +18,7 @@
 
     </tr>
   </tbody>
+  <% end %>
   <% end %>
   <tbody>
     <tr>

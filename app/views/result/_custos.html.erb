@@ -8,6 +8,7 @@
     </tr>
   </thead>
 
+  <% if @custos %>
   <% @custos.each do |custo| %>
 
   <tbody>
@@ -18,6 +19,7 @@
 
     </tr>
   </tbody>
+  <% end %>
   <% end %>
   <tbody>
     <tr>

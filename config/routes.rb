@@ -19,7 +19,7 @@ devise_for :users, controllers: {
 
   
   
-  get 'resultado/selecionar_periodo', to: 'result#index', as: :result
+  get 'resultado/DRE', to: 'result#index', as: :result
   get 'resultado/atual', to: 'result#show', as: :show_result
   get 'control_users/index'
   get 'dashboard', to: 'welcome#dashboard', as: :dashboard

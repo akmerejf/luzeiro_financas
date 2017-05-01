@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170427140639) do
+ActiveRecord::Schema.define(version: 20170428235253) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "code",        limit: 255
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(version: 20170427140639) do
     t.date     "special_situation_date"
     t.string   "capital",                limit: 255
     t.date     "situation_date"
+    t.string   "taxation",               limit: 255
+    t.string   "operation_nature",       limit: 255
   end
 
   add_index "companies", ["user_id"], name: "index_companies_on_user_id", using: :btree
