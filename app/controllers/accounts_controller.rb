@@ -31,7 +31,7 @@ class AccountsController < ApplicationController
   # POST /accounts.json
   def create
     @account = Account.new(account_params)
-
+    @account.company = current_user.companies.last
     respond_to do |format|
       if @account.save
         format.html { redirect_to accounts_path, notice: 'Account was successfully created.' }
@@ -75,6 +75,6 @@ class AccountsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def account_params
-      params.require(:account).permit(:code, :name, :analytic, :parent_id, :description, :balance, :account_type_id )
+      params.require(:account).permit(:code, :name, :analytic, :parent_id, :description, :balance, :account_type_id, :company_id )
     end
 end

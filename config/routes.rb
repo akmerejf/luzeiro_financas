@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :ativos
+  resources :caixas, controller: 'ativos', type: 'Caixa' 
+  resources :bancos, controller: 'ativos', type: 'Banco' 
   resources :operations
   resources :operations, except: [:edit, :update] 
   resources :accounts

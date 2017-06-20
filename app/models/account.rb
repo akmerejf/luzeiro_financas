@@ -4,7 +4,10 @@ class Account < ActiveRecord::Base
   has_many :balances, dependent: :destroy
   has_many :operations, through: :balances
   
+  belongs_to :company
+  has_one :ativo
 
+  delegate :caixas, :bancos, to: :ativo
 
   def account_code
 

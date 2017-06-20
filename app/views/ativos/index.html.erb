@@ -1,0 +1,71 @@
+<p id="notice"><%= notice %></p>
+<div class="container-fluid"> 
+  <div class="col md-12">
+    <div class="row">
+      <ol class="breadcrumb">
+        <li><%= link_to icon('home'), root_path%></li>
+        <li><%= link_to icon('briefcase'), wizard_index_path%></li>
+        <li class="active"><%= @type.capitalize %>/</li>
+      </ol>
+      <h1><%= link_to icon('arrow-left'), wizard_index_path %> <%= @type.upcase %></h1> 
+      <hr>
+      <%= form_tag ativos_path, method: 'get' do %>
+        <div class="input-group">
+          <%= text_field_tag :search, params[:search], class: 'form-control' , placeholder: 'Pesquisar Disciplinas'%>
+          <!-- <input type="text" class="form-control" placeholder="Procurando algum produto?"> -->
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">
+              <span class="fa fa-search">
+                <span class="sr-only">Pesquisar</span>
+              </span>
+            </button>
+          </span>
+        </div>
+        <small><%= icon('info-circle')%> Você pode pesquisar por Nome</small>
+        <%if params[:search].present?%>
+          <p><b>Pesquisando por:</b> "<%= params[:search]%>"</p>
+        <% end %>
+      <% end %>
+      <p class="text-right"><%= link_to icon('plus', "Cadastrar #{@type}"), sti_ativo_path(@type, nil, :new), class: "btn btn-primary", method: :get%></p>
+      <div class="panel panel-default">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Curto prazo</th>
+              <th>Longo prazo</th>
+              <th>Investimento</th>
+              <th>Imobilizado</th>
+              <th>Intangivel</th>
+              <th>Natureza conta</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @ativos.each do |ativo| %>
+              <tr>
+                <td><%= ativo.name %></td>
+                <td><%= ativo.curto_prazo %></td>
+                <td><%= ativo.longo_prazo %></td>
+                <td><%= ativo.investimento %></td>
+                <td><%= ativo.imobilizado %></td>
+                <td><%= ativo.intangivel %></td>
+                <td><%= ativo.natureza_conta %></td>
+                <td><%= link_to 'Show', sti_ativo_path(ativo.type, ativo) %></td>
+                <td><%= link_to "See all #{ativo.type.pluralize}", sti_ativo_path(ativo.type) %></td>
+                <td><%= link_to 'Edit', sti_ativo_path(ativo.type, ativo, :edit) %></td>
+                 <td><%= link_to 'Destroy', sti_ativo_path(ativo.type, ativo), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+        <br>
+
+        
+
+        <%= link_to 'See all ativos', sti_ativo_path %>

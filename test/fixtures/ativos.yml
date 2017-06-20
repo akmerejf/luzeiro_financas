@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  curto_prazo: false
+  longo_prazo: false
+  investimento: false
+  imobilizado: false
+  intangivel: false
+  natureza_conta: MyString
+
+two:
+  name: MyString
+  curto_prazo: false
+  longo_prazo: false
+  investimento: false
+  imobilizado: false
+  intangivel: false
+  natureza_conta: MyString

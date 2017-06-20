@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @ativo.name %>
+</p>
+
+<p>
+  <strong>Curto prazo:</strong>
+  <%= @ativo.curto_prazo %>
+</p>
+
+<p>
+  <strong>Longo prazo:</strong>
+  <%= @ativo.longo_prazo %>
+</p>
+
+<p>
+  <strong>Investimento:</strong>
+  <%= @ativo.investimento %>
+</p>
+
+<p>
+  <strong>Imobilizado:</strong>
+  <%= @ativo.imobilizado %>
+</p>
+
+<p>
+  <strong>Intangivel:</strong>
+  <%= @ativo.intangivel %>
+</p>
+
+<p>
+  <strong>Natureza conta:</strong>
+  <%= @ativo.natureza_conta %>
+</p>
+
+<%= link_to 'Edit', edit_ativo_path(@ativo) %> |
+<%= link_to 'Back', ativos_path %>

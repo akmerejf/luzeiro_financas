@@ -1,0 +1,31 @@
+<%= simple_form_for(@ativo) do |f| %>
+  <div class="col-md-8 col-md-offset-2 col-sm-12 well">
+    <div class="row">
+      <div class="col-sm-12">
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+          <%= f.input :name %>
+          <%= f.input_field :curto_prazo, inline_label: 'Curto Prazo'  %>
+          <%= f.input_field :longo_prazo, inline_label: 'Longo Prazo' %>
+          <%= f.input_field :investimento, inline_label: 'Investimento' %>
+          <%= f.input_field :imobilizado, inline_label: 'Imobilizado' %>
+          <%= f.input_field :intangivel, inline_label: 'Intangível' %>
+          <%= f.input :natureza_conta %>
+          <%= f.select :type, Ativo.types.map {|r| [r.humanize, r.camelcase]}, {}, disabled: @type != "Ativo", hidden: @type != "Ativo" %> 
+        </div>
+
+        <div class="form-actions">
+          <div class="col-sm-12">
+            <br>
+            <%= f.button :submit, "Novo #{@type}", class: "btn btn-success btn-block" %>
+          </div>
+          <div class="col-sm-12">
+            <br>
+            <%= link_to 'Voltar', sti_ativo_path(@type), class: "btn btn-link btn-block" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

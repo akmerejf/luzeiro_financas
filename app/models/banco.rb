@@ -1,0 +1,3 @@
+class Banco < Ativo
+
+end

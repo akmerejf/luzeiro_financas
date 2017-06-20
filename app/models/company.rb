@@ -1,12 +1,14 @@
 class Company < ActiveRecord::Base
   belongs_to :user
   has_many :balances
-  has_many :accounts, through: :balances
+  has_many :accounts
   has_one :chart_of_account, autosave: true, dependent: :destroy
   has_one :address, dependent: :destroy
 
   validates :name, presence: true
   accepts_nested_attributes_for :chart_of_account, :address
+
+  
 
   def address
     super || build_address

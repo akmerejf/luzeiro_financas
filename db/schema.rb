@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428235253) do
+ActiveRecord::Schema.define(version: 20170503025509) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "code",        limit: 255
@@ -21,9 +21,11 @@ ActiveRecord::Schema.define(version: 20170428235253) do
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.string   "ancestry",    limit: 255
+    t.integer  "company_id",  limit: 4
   end
 
   add_index "accounts", ["ancestry"], name: "index_accounts_on_ancestry", using: :btree
+  add_index "accounts", ["company_id"], name: "index_accounts_on_company_id", using: :btree
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "company_id", limit: 4
@@ -39,6 +41,22 @@ ActiveRecord::Schema.define(version: 20170428235253) do
 
   add_index "addresses", ["company_id"], name: "index_addresses_on_company_id", using: :btree
 
+  create_table "ativos", force: :cascade do |t|
+    t.string   "name",           limit: 255
+    t.boolean  "curto_prazo"
+    t.boolean  "longo_prazo"
+    t.boolean  "investimento"
+    t.boolean  "imobilizado"
+    t.boolean  "intangivel"
+    t.string   "natureza_conta", limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "account_id",     limit: 4
+    t.string   "type",           limit: 255
+  end
+
+  add_index "ativos", ["account_id"], name: "index_ativos_on_account_id", using: :btree
+
   create_table "balances", force: :cascade do |t|
     t.decimal  "value",                  precision: 10, scale: 2
     t.integer  "nature",       limit: 4
@@ -50,6 +68,11 @@ ActiveRecord::Schema.define(version: 20170428235253) do
 
   add_index "balances", ["account_id"], name: "index_balances_on_account_id", using: :btree
   add_index "balances", ["operation_id"], name: "index_balances_on_operation_id", using: :btree
+
+  create_table "caixas", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "chart_of_accounts", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -164,7 +187,9 @@ ActiveRecord::Schema.define(version: 20170428235253) do
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "accounts", "companies"
   add_foreign_key "addresses", "companies"
+  add_foreign_key "ativos", "accounts"
   add_foreign_key "balances", "accounts"
   add_foreign_key "balances", "operations"
   add_foreign_key "chart_of_accounts", "companies"

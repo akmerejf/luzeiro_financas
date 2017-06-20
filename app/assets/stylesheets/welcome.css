@@ -208,10 +208,12 @@ li,ul{
     display: table-cell;
     float: none;
     height: 100%;
+
 }
 
 .v-align {
     vertical-align: top;
+    
 }
 .logo img {
     max-width: 180px;
